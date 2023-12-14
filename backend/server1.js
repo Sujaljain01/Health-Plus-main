@@ -42,6 +42,61 @@ mongoose.connect("mongodb://127.0.0.1:27017/healthSyncDB", {UseNewUrlParser : tr
 });
 
 
+const userSchema = new Schema({
+    username : String,
+    password : String,
+})
+
+const User = new mongoose.model("User", userSchema);
+
+const doctorSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    specialization: {
+        type: String,
+        required: true,
+    },
+    availability: {
+        type: [Number], // Array of time slots (e.g., [9, 10, 11, 14, 15, 16])
+        default: [],
+    },
+});
+
+
+const Doctor = new mongoose.model("Doctor", doctorSchema);
+
+const appointmentSchema = new mongoose.Schema({
+    doctor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Doctor',
+        required: true,
+    },
+    patient: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Patient',
+        required: true,
+    },
+    start_time: {
+        type: Date,
+        required: true,
+    },
+    end_time: {
+        type: Date,
+        required: true,
+    },
+    is_emergency: {
+        type: Boolean,
+        default: false,
+    },
+});
+
+const Appointment = mongoose.model('Appointment', appointmentSchema);
+
+
+
+
 app.post('/patientDetails',(req,res)=>{
     
     const pName = req.body.patientName;
