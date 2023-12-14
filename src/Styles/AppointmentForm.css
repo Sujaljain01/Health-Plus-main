@@ -2,6 +2,7 @@
     padding: 32px;
     display: flex;
     flex-direction: column;
+    margin: 150px;
     gap: 40px;
     background: linear-gradient(to right, #ECF2FF, #FBFCFF);
 }

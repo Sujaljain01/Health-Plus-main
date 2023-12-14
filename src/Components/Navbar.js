@@ -4,6 +4,7 @@ import {
   faCommentDots,
   faBars,
   faXmark,
+  faSignIn,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Navbar.css";
 import { Link } from "react-router-dom";
@@ -52,14 +53,10 @@ function Navbar() {
         </li>
         <li>
           <a href="#about" className="navbar-links">
-            About
+          Symptoms Analyser
           </a>
         </li>
-        <li>
-          <a href="#reviews" className="navbar-links">
-            Reviews
-          </a>
-        </li>
+      
         <li>
           <a    onClick={handleBookAppointmentClick} href="#appointment" className="navbar-links">
        
@@ -81,7 +78,7 @@ function Navbar() {
         disabled={isButtonDisabled}
         onClick={handleChatBtnClick}
       >
-        <FontAwesomeIcon icon={faCommentDots} /> Live Chat
+        <FontAwesomeIcon icon={faSignIn} /> SignIn/Up
       </button>
 
       {/* Mobile */}
