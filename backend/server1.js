@@ -110,7 +110,73 @@ const appointmentSchema = new mongoose.Schema({
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
+// Doctor.insertMany([
+//     {
+//         "name": "John Smith",
+//         "specialization": "General Practice",  
+//         "availability": [9, 10, 11, 14, 15, 16]
+//       },
+//       {
+//         "name": "Sarah Park", 
+//         "specialization": "Pediatrics",
+//         "availability": [10, 13, 15]
+//       },
+//       {
+//         "name": "Mark Taylor",
+//         "specialization": "Cardiology",
+//         "availability": [9, 12, 14, 16]
+//       },
+//       {
+//         "name": "Jessica Moore",
+//         "specialization": "Dermatology",
+//         "availability": [9, 11, 14, 17]    
+//       },
+//       {
+//         "name": "David Kim",
+//         "specialization": "Neurology",
+//         "availability": [10, 13, 15, 17]
+//       },
+//       {  
+//         "name": "Lisa Chen",
+//         "specialization": "Obstetrics", 
+//         "availability": [9, 15, 16, 17]
+//       },
+//       {
+//         "name": "Mike Davis", 
+//         "specialization": "Gastroenterology",
+//         "availability": [9, 10, 14, 16] 
+//       },
+//       {
+//         "name": "Cindy Lopez",
+//         "specialization": "Endocrinology",  
+//         "availability": [10, 12, 13, 15]
+//       },
+//       {
+//         "name": "Steve Martinez",
+//         "specialization": "Oncology",
+//         "availability": [11, 12, 14, 17]
+//       }, 
+//       {
+//         "name": "Amy Patel",
+//         "specialization": "Ophthalmology", 
+//         "availability": [11, 13, 17]
+//       }
+    
+// ]).then(function(){
+//     console.log("Data inserted");
+// }).catch(function(error){
+//     console.log("Could not insert academic events");
+// });
 
+
+
+
+
+
+
+
+
+///////////
 
 
 
