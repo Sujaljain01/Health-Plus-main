@@ -67,7 +67,6 @@ function AppointmentForm() {
     setPatientNumber("");
     setPatientGender("default");
     setAppointmentTime("");
-    setPreferredMode("default");
     setFormErrors({});
     setDoctorName("")
 

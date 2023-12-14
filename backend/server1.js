@@ -49,6 +49,23 @@ const userSchema = new Schema({
 
 const User = new mongoose.model("User", userSchema);
 
+const adminSchema = new Schema({
+    username : String,
+    password : String,
+})
+
+const Admin = new mongoose.model("Admin", adminSchema);
+
+
+const patientSchema = new Schema({
+    name : String,
+    contactNumber : String,
+    gender : String
+})
+
+const Patient = new mongoose.model("Patient", patientSchema);
+
+
 const doctorSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -97,45 +114,64 @@ const Appointment = mongoose.model('Appointment', appointmentSchema);
 
 
 
-app.post('/patientDetails',(req,res)=>{
-    
-    const pName = req.body.patientName;
-    const pNumber = req.body.patientGender;
-    const pGender = req.body.patientGender;
-    const appTime = req.body.appointmentTime;
-    console.log(appTime);
-    // const newPost = new mySchemas.JobPost({
-    // company : comp,
-    // position : pos,
-    // location : loc,
-    // skillSet : skillSet
-    // });
-    // newPost.save()
-    // .then(async newP => {
-    //     const postId = newP._id;
+app.post('/patientDetails', async (req, res) => {
+    try {
+        // Extract patient details from the request
+        const pName = req.body.patientName;
+        const pNumber = req.body.patientNumber;
+        const pGender = req.body.patientGender;
+        const appTime = req.body.appointmentTime;
 
-    //     try {
-    //         const employer = await Employer.findById(empId);
-    //         console.log(employer);
+        // Find a doctor based on specialization (you may need a more specific query)
+        const doctor = await Doctor.findOne({ specialization: 'Cardiologist' });
 
-    //         employer.jobPostId.push(postId);
-    //         console.log(employer.jobPostId);
+        if (!doctor) {
+            return res.status(404).json({ error: 'No available doctor found for the given specialization.' });
+        }
 
-    //         // Save the updated employer with the new post ID
-    //         await employer.save();
+        // Find the closest available time slot based on the specified appointment time
+        const closestAvailableTime = findClosestAvailableTime(doctor.availability, new Date(appTime));
 
-    //         console.log('Post ID added to Employer successfully');
-    //     } catch (error) {
-    //         console.error('Error updating employer:', error);
-    //     }
-    // })
-    // .catch(error => {
-    //     console.error('Error saving the new post:', error);
-    // });
-     
-    
-    res.json({message : "posted the data"});
+        if (!closestAvailableTime) {
+            return res.status(400).json({ error: 'No available time slot for the specified appointment time.' });
+        }
+
+        // Create a new patient
+        const newPatient = new Patient({
+            name: pName,
+            contactNumber: pNumber,
+            gender: pGender,
+        });
+
+        // Save the patient to the database
+        const savedPatient = await newPatient.save();
+
+        // Create a new appointment using the closest available time slot
+        const newAppointment = new Appointment({
+            doctor: doctor._id, // Use the doctor's ObjectId
+            patient: savedPatient._id, // Use the patient's ObjectId
+            start_time: closestAvailableTime,
+            end_time: new Date(closestAvailableTime.getTime() + (1 * 60 * 60 * 1000)), // Assuming 1 hour appointment duration
+            is_emergency: false, // Adjust this based on your requirements
+        });
+
+        // Save the appointment to the database
+        const savedAppointment = await newAppointment.save();
+
+        res.status(201).json({
+            message: 'Patient details and appointment created successfully.',
+            appointment: savedAppointment,
+        });
+    } catch (error) {
+        console.error('Error processing appointment:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
+
+function findClosestAvailableTime(availability, desiredTime) {
+    const sortedAvailability = availability.sort((a, b) => Math.abs(desiredTime - new Date(a)) - Math.abs(desiredTime - new Date(b)));
+    return sortedAvailability[0];
+}
 
 app.listen(port, () => {
     console.log(`API is running at http://localhost:${port}`);
