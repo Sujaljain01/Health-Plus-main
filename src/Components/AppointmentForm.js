@@ -82,7 +82,7 @@ function AppointmentForm() {
     <div className="appointment-form-section">
       <h1 className="legal-siteTitle">
         <Link to="/">
-          Health <span className="legal-siteSign">+</span>
+          Health<span className="legal-siteSign">Sync</span>
         </Link>
       </h1>
 
@@ -153,6 +153,25 @@ function AppointmentForm() {
               required
             />
             {formErrors.doctorName && <p className="error-message">{formErrors.doctorName}</p>}
+          </label>
+          <label>
+           Doctor Name:
+            <select
+              value={preferredMode}
+              onChange={(e) => setPreferredMode(e.target.value)}
+              required
+            >
+              <option value="default">Select</option>
+              <option value="voice">Dr Ganesh Murthy</option>
+              <option value="video">Dr Ramya</option>
+              <option value="video">Dr Priyanka Murthy</option>
+            </select>
+            {formErrors.preferredMode && <p className="error-message">{formErrors.preferredMode}</p>}
+          </label>
+          <label>
+           Upload previous Precription:
+           <input type="file" />
+            {formErrors.preferredMode && <p className="error-message">{formErrors.preferredMode}</p>}
           </label>
 
           <br />
