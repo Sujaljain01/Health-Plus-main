@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../Styles/AppointmentForm.css";
 import { ToastContainer, toast } from "react-toastify";
-
+import axios from 'axios';
 function AppointmentForm() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -54,6 +54,12 @@ function AppointmentForm() {
       return;
     }
 
+    axios.post(`http://localhost:4000/patientDetails`, {
+    patientName : patientName,
+    patientNumber: patientNumber,
+    patientGender: patientGender,
+    appointmentTime : appointmentTime
+    }).then((response)=>console.log(response.data));
     // Reset form fields and errors after successful submission
     setPatientName("");
     setPatientNumber("");
