@@ -149,16 +149,17 @@ function AppointmentForm() {
             {formErrors.preferredMode && <p className="error-message">{formErrors.preferredMode}</p>}
           </label>
           <label>
-           Doctor Name:
+           Specialisation
             <select
               value={preferredMode}
               onChange={(e) => setPreferredMode(e.target.value)}
               required
             >
               <option value="default">Select</option>
-              <option value="voice">Dr Ganesh Murthy</option>
-              <option value="video">Dr Ramya</option>
-              <option value="video">Dr Priyanka Murthy</option>
+              <option value="voice">Cardiologist</option>
+              <option value="video">Physiologists</option>
+              <option value="video">Pediatrician</option>
+              <option value="video">Radiologist</option>
             </select>
             {formErrors.preferredMode && <p className="error-message">{formErrors.preferredMode}</p>}
           </label>

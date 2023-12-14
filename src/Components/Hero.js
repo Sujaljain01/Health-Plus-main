@@ -36,7 +36,7 @@ function Hero() {
     <div className="section-container">
       <div className="hero-section">
         <div className="text-section">
-          <p className="text-headline">❤️ Health comes first</p>
+          <p className="text-headline">Health comes first</p>
           <h2 className="text-title">
             Find your Doctor and make an Appointments
           </h2>
@@ -61,12 +61,12 @@ function Hero() {
           </button>
           <div className="text-stats">
             <div className="text-stats-container">
-              <p>145k+</p>
+              <p>105k+</p>
               <p>Receive Patients</p>
             </div>
 
             <div className="text-stats-container">
-              <p>50+</p>
+              <p>20+</p>
               <p>Expert Doctors</p>
             </div>
 
