@@ -52,6 +52,13 @@ function Hero() {
           >
             <FontAwesomeIcon icon={faCalendarCheck} /> Book Appointment
           </button>
+          <button
+            className="text-scheduler-btn"
+            type="button"
+            onClick={handleBookAppointmentClick}
+          >
+            <FontAwesomeIcon icon={faCalendarCheck} />  Symptoms Analyser
+          </button>
           <div className="text-stats">
             <div className="text-stats-container">
               <p>145k+</p>
