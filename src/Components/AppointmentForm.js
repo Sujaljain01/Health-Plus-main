@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../Styles/AppointmentForm.css";
 import { ToastContainer, toast } from "react-toastify";
-
+import axios from 'axios';
 function AppointmentForm() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
+  const [doctorName, setDoctorName] = useState("")
   const [patientName, setPatientName] = useState("");
   const [patientNumber, setPatientNumber] = useState("");
   const [patientGender, setPatientGender] = useState("default");
@@ -54,6 +55,13 @@ function AppointmentForm() {
       return;
     }
 
+    axios.post(`http://localhost:4000/patientDetails`, {
+    patientName : patientName,
+    patientNumber: patientNumber,
+    patientGender: patientGender,
+    appointmentTime : appointmentTime,
+    doctorName : doctorName
+    }).then((response)=>console.log(response.data));
     // Reset form fields and errors after successful submission
     setPatientName("");
     setPatientNumber("");
@@ -61,6 +69,7 @@ function AppointmentForm() {
     setAppointmentTime("");
     setPreferredMode("default");
     setFormErrors({});
+    setDoctorName("")
 
     toast.success("Appointment Scheduled !", {
       position: toast.POSITION.TOP_CENTER,
@@ -136,17 +145,14 @@ function AppointmentForm() {
 
           <br />
           <label>
-            Preferred Mode:
-            <select
-              value={preferredMode}
-              onChange={(e) => setPreferredMode(e.target.value)}
+            Doctor:
+            <input
+              type="text"
+              value={doctorName}
+              onChange={(e) => setDoctorName(e.target.value)}
               required
-            >
-              <option value="default">Select</option>
-              <option value="voice">Voice Call</option>
-              <option value="video">Video Call</option>
-            </select>
-            {formErrors.preferredMode && <p className="error-message">{formErrors.preferredMode}</p>}
+            />
+            {formErrors.doctorName && <p className="error-message">{formErrors.doctorName}</p>}
           </label>
           <label>
            Specialisation
